@@ -67,21 +67,6 @@ const Hero = () => {
             </svg>
           </button>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 max-w-lg mx-auto animate-slide-up" style={{ animationDelay: '0.5s' }}>
-            <div className="text-center">
-              <div className="font-heading text-3xl md:text-4xl font-bold text-secondary">34+</div>
-              <div className="text-sm text-primary-foreground/70">Siswa</div>
-            </div>
-            <div className="text-center">
-              <div className="font-heading text-3xl md:text-4xl font-bold text-secondary">3</div>
-              <div className="text-sm text-primary-foreground/70">Tahun Belajar</div>
-            </div>
-            <div className="text-center">
-              <div className="font-heading text-3xl md:text-4xl font-bold text-secondary">100%</div>
-              <div className="text-sm text-primary-foreground/70">Semangat</div>
-            </div>
-          </div>
         </div>
       </div>
 
