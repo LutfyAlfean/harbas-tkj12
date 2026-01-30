@@ -1,0 +1,19 @@
+# Ignore build outputs
+dist
+node_modules
+
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore development files
+*.md
+.env*
+.vscode
+.idea
+
+# Ignore test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
