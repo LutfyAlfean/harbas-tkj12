@@ -12,12 +12,6 @@ const VisionMission = () => {
   return (
     <section id="visi-misi" className="py-20 md:py-28 bg-muted">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Visi & <span className="text-gradient">Misi</span>
-          </h2>
-        </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Vision Card */}

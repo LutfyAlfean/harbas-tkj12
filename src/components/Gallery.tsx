@@ -10,23 +10,23 @@ const Gallery = () => {
   const images = [
     {
       src: tkj2,
-      title: "Foto Bersama di Kelas",
-      description: "Momen kebersamaan dengan wali kelas tercinta"
+      title: "12 TKJ 2",
+      description: "Foto bersama kelas 12 TKJ 2"
     },
     {
       src: tkj5,
-      title: "Kegiatan Keagamaan",
-      description: "Peringatan hari besar keagamaan bersama"
+      title: "TKJ 5",
+      description: "Foto bersama kelas TKJ 5"
     },
     {
       src: tkj3,
-      title: "Hari Profesi",
-      description: "Menunjukkan cita-cita dan profesi impian"
+      title: "TKJ 3",
+      description: "Foto bersama kelas TKJ 3"
     },
     {
       src: tkj4,
-      title: "Outdoor Class",
-      description: "Belajar bersama di luar kelas dengan suasana segar"
+      title: "TKJ 4",
+      description: "Foto bersama kelas TKJ 4"
     }
   ];
 
