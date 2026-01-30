@@ -46,12 +46,6 @@ const Header = () => {
             >
               Galeri
             </button>
-            <button 
-              onClick={() => scrollToSection("visi-misi")}
-              className="text-sm font-medium text-foreground hover:text-secondary transition-colors"
-            >
-              Visi & Misi
-            </button>
           </nav>
 
           {/* Mobile menu button */}
