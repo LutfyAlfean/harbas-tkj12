@@ -9,29 +9,7 @@ Website resmi kelas XII Teknik Komputer dan Jaringan SMK Harapan Bangsa tahun aj
 
 ---
 
-## 📸 Screenshot
 
-### Hero Section
-![Hero Section](docs/screenshots/hero.png)
-
-*Landing page dengan background foto kelas dan animasi smooth*
-
-### About Section
-![About Section](docs/screenshots/about.png)
-
-*Informasi tentang kelas dan skill yang dipelajari*
-
-### Gallery Section
-![Gallery Section](docs/screenshots/gallery.png)
-
-*Galeri foto dokumentasi kegiatan kelas dengan lightbox*
-
-### Vision & Mission
-![Vision Mission](docs/screenshots/visi-misi.png)
-
-*Visi dan misi kelas XII TKJ*
-
----
 
 ## 📝 Deskripsi
 
