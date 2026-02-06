@@ -20,19 +20,19 @@ const Gallery = () => {
       description: "Foto bersama kelas 12 TKJ 2"
     },
     {
-      src: tkj5,
-      title: "TKJ 5",
-      description: "Foto bersama kelas TKJ 5"
-    },
-    {
       src: tkj3,
-      title: "TKJ 3",
-      description: "Foto bersama kelas TKJ 3"
+      title: "12 TKJ 3",
+      description: "Foto bersama kelas 12 TKJ 3"
     },
     {
       src: tkj4,
-      title: "TKJ 4",
-      description: "Foto bersama kelas TKJ 4"
+      title: "12 TKJ 4",
+      description: "Foto bersama kelas 12 TKJ 4"
+    },
+    {
+      src: tkj5,
+      title: "12 TKJ 5",
+      description: "Foto bersama kelas 12 TKJ 5"
     }
   ];
 
@@ -54,7 +54,7 @@ const Gallery = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           {images.map((image, index) => (
             <div 
               key={index}
