@@ -1,4 +1,5 @@
 import { useState } from "react";
+import tkj1 from "@/assets/gallery/tkj1.jpg";
 import tkj2 from "@/assets/gallery/tkj2.jpg";
 import tkj3 from "@/assets/gallery/tkj3.jpeg";
 import tkj4 from "@/assets/gallery/tkj4.jpeg";
@@ -8,6 +9,11 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const images = [
+    {
+      src: tkj1,
+      title: "12 TKJ 1",
+      description: "Foto bersama kelas 12 TKJ 1"
+    },
     {
       src: tkj2,
       title: "12 TKJ 2",

@@ -9,17 +9,14 @@ Website resmi kelas XII Teknik Komputer dan Jaringan SMK Harapan Bangsa tahun aj
 
 ---
 
-
-
 ## 📝 Deskripsi
 
 Website ini merupakan website statis yang menampilkan profil kelas XII TKJ SMK Harapan Bangsa. Website dibuat menggunakan React dengan Tailwind CSS dan menampilkan:
 
 - **Hero Section** - Landing page dengan foto kelas dan statistik
-- **About Section** - Informasi tentang kelas dan keahlian yang dipelajari
-- **Gallery Section** - Galeri foto dokumentasi kegiatan dengan fitur lightbox
-- **Vision & Mission** - Visi dan misi kelas
-- **Footer** - Informasi kontak dan social media
+- **About Section** - Informasi tentang kelas XII TKJ
+- **Gallery Section** - Galeri foto dokumentasi kegiatan (TKJ 1, TKJ 2, TKJ 3, TKJ 4, TKJ 5) dengan fitur lightbox
+- **Footer** - Informasi kontak, lokasi, dan social media (Instagram, YouTube)
 
 ---
 
@@ -32,7 +29,7 @@ Website ini merupakan website statis yang menampilkan profil kelas XII TKJ SMK H
 - Fully responsive untuk semua device
 
 ### 🖼️ Gallery Interaktif
-- Grid layout yang menarik
+- Grid layout dengan 5 foto kelas (TKJ 1-5)
 - Hover effect dengan overlay informasi
 - Lightbox untuk melihat foto full size
 - Smooth transitions
@@ -113,7 +110,6 @@ docker compose up -d --build
 │   │   ├── Hero.tsx
 │   │   ├── About.tsx
 │   │   ├── Gallery.tsx
-│   │   ├── VisionMission.tsx
 │   │   └── Footer.tsx
 │   ├── pages/
 │   │   └── Index.tsx
