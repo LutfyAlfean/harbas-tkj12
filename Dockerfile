@@ -3,20 +3,17 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install bun for faster package management
-RUN npm install -g bun
+# Copy package files first for better caching
+COPY package.json package-lock.json* ./
 
-# Copy package files
-COPY package.json bun.lockb* package-lock.json* ./
-
-# Install dependencies
-RUN bun install --frozen-lockfile || npm ci
+# Install dependencies using npm (faster and more reliable on Alpine)
+RUN npm ci --legacy-peer-deps
 
 # Copy source code
 COPY . .
 
 # Build the application
-RUN bun run build || npm run build
+RUN npm run build
 
 # Production stage with Nginx
 FROM nginx:alpine AS production

@@ -38,9 +38,6 @@ cd 12tkj-harbas-website
 ```bash
 # Build dan jalankan container
 docker compose up -d --build
-
-# Atau jika menggunakan docker-compose versi lama
-docker-compose up -d --build
 ```
 
 #### Step 3: Verifikasi Deployment
