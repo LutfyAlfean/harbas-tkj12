@@ -13,10 +13,10 @@ Website resmi kelas XII Teknik Komputer dan Jaringan SMK Harapan Bangsa tahun aj
 
 Website ini merupakan website statis yang menampilkan profil kelas XII TKJ SMK Harapan Bangsa. Website dibuat menggunakan React dengan Tailwind CSS dan menampilkan:
 
-- **Hero Section** - Landing page dengan foto kelas dan statistik
-- **About Section** - Informasi tentang kelas XII TKJ
-- **Gallery Section** - Galeri foto dokumentasi kegiatan (TKJ 1, TKJ 2, TKJ 3, TKJ 4, TKJ 5) dengan fitur lightbox
-- **Footer** - Informasi kontak, lokasi, dan social media (Instagram, YouTube)
+- **Hero Section** - Landing page dengan background foto kelas dan statistik
+- **About Section** - Informasi tentang kelas XII TKJ SMK Harapan Bangsa
+- **Gallery Section** - Galeri foto 5 kelas (TKJ 1, TKJ 2, TKJ 3, TKJ 4, TKJ 5) dengan layout 3 kolom dan fitur lightbox
+- **Footer** - Informasi kontak lengkap, lokasi sekolah, dan social media
 
 ---
 
@@ -29,7 +29,8 @@ Website ini merupakan website statis yang menampilkan profil kelas XII TKJ SMK H
 - Fully responsive untuk semua device
 
 ### 🖼️ Gallery Interaktif
-- Grid layout dengan 5 foto kelas (TKJ 1-5)
+- Grid layout 3 kolom dengan 5 foto kelas TKJ
+- Urutan foto TKJ 1 sampai TKJ 5
 - Hover effect dengan overlay informasi
 - Lightbox untuk melihat foto full size
 - Smooth transitions
@@ -70,6 +71,19 @@ Website ini merupakan website statis yang menampilkan profil kelas XII TKJ SMK H
 
 ---
 
+## 📍 Informasi Kontak
+
+| Info | Detail |
+|------|--------|
+| **Alamat** | Jl. Komjen Pol. M. Jasin (Akses UI) No. 89, Kelapa Dua Cimanggis, Depok, Jawa Barat 16951 |
+| **Telepon** | 021 - 87720786 |
+| **Fax** | 021 - 87721016 |
+| **Website** | [www.smkharapanbangsa.sch.id](https://www.smkharapanbangsa.sch.id) |
+| **Instagram** | [@smk_harapanbangsa](https://www.instagram.com/smk_harapanbangsa) |
+| **YouTube** | [SMK Harapan Bangsa](https://www.youtube.com/channel/UCfJ_yGJB-K9qv90ks6DGMzA) |
+
+---
+
 ## 🚀 Quick Start
 
 ### Development
@@ -104,15 +118,15 @@ docker compose up -d --build
 ├── src/
 │   ├── assets/           # Gambar dan assets
 │   │   ├── logo-harbas.png
-│   │   └── gallery/      # Foto galeri
+│   │   └── gallery/      # Foto galeri (tkj1-tkj5)
 │   ├── components/       # React components
-│   │   ├── Header.tsx
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Gallery.tsx
-│   │   └── Footer.tsx
+│   │   ├── Header.tsx    # Navigasi header
+│   │   ├── Hero.tsx      # Hero section dengan CTA
+│   │   ├── About.tsx     # Informasi tentang kelas
+│   │   ├── Gallery.tsx   # Galeri foto 3 kolom
+│   │   └── Footer.tsx    # Footer dengan kontak & social media
 │   ├── pages/
-│   │   └── Index.tsx
+│   │   └── Index.tsx     # Halaman utama
 │   ├── index.css         # Design system
 │   └── main.tsx
 ├── public/
@@ -123,6 +137,16 @@ docker compose up -d --build
 ├── devops.md             # Deployment guide
 └── README.md
 ```
+
+---
+
+## 🧭 Navigasi Website
+
+| Menu | Deskripsi |
+|------|-----------|
+| Beranda | Hero section dengan welcome message |
+| Tentang Kami | Informasi tentang kelas XII TKJ |
+| Galeri Foto | Dokumentasi foto 5 kelas TKJ |
 
 ---
 
