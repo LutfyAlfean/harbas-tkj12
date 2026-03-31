@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.7
-
 # Dependencies stage
 FROM node:20-alpine AS deps
 
