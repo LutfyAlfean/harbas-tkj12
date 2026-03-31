@@ -1,8 +1,10 @@
 services:
   web:
+    image: 12tkj-harbas-web:latest
     build:
       context: .
       dockerfile: Dockerfile
+      target: production
     container_name: 12tkj-harbas-web
     ports:
       - "8213:8213"
