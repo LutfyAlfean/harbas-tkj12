@@ -36,9 +36,15 @@ cd 12tkj-harbas-website
 #### Step 2: Build dan Run dengan Docker Compose
 
 ```bash
+# Aktifkan BuildKit agar cache npm pada Dockerfile bekerja maksimal
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
 # Build dan jalankan container
 docker compose up -d --build
 ```
+
+> **Catatan performa:** build pertama tetap paling lama karena install dependency dari nol. Setelah itu, build berikutnya akan jauh lebih cepat karena Dockerfile sekarang memakai cache npm (`--mount=type=cache,target=/root/.npm`).
 
 #### Step 3: Verifikasi Deployment
 
@@ -73,7 +79,7 @@ cd 12tkj-harbas-website
 #### Step 2: Build Docker Image
 
 ```bash
-docker build -t 12tkj-harbas-web .
+DOCKER_BUILDKIT=1 docker build -t 12tkj-harbas-web .
 ```
 
 #### Step 3: Run Container
@@ -228,9 +234,13 @@ docker compose logs -f
 # Lihat status
 docker compose ps
 
-# Rebuild tanpa cache
-docker compose build --no-cache
+# Rebuild normal (memakai cache agar lebih cepat)
+docker compose build
 docker compose up -d
+
+# Pakai --no-cache hanya jika benar-benar perlu reset full build
+# docker compose build --no-cache
+# docker compose up -d
 ```
 
 ### Update Website
@@ -239,7 +249,9 @@ docker compose up -d
 # Pull perubahan terbaru
 git pull origin main
 
-# Rebuild dan deploy
+# Rebuild dan deploy (cache tetap dipakai)
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
 docker compose up -d --build
 ```
 
@@ -299,12 +311,24 @@ docker events
 ### Build gagal
 
 ```bash
-# Clear Docker cache
-docker system prune -a
+# Rebuild dengan log lebih detail
+docker compose build --progress=plain
 
-# Rebuild dari awal
+# Jika cache diduga rusak, baru rebuild dari awal
 docker compose build --no-cache
 ```
+
+### Build lama saat `npm ci`
+
+Jika proses lama berhenti di langkah `npm ci`, itu biasanya normal pada build pertama. Sesudah cache terbentuk, deploy berikutnya akan jauh lebih cepat. Pastikan:
+
+```bash
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+docker compose up -d --build
+```
+
+Hindari memakai `--no-cache` kecuali sedang troubleshooting, karena opsi itu akan menghapus keuntungan cache dependency.
 
 ---
 
