@@ -40,11 +40,12 @@ cd 12tkj-harbas-website
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
-# Build dan jalankan container
-docker compose up -d --build
+# Build lalu jalankan container
+docker compose build --progress=plain
+docker compose up -d
 ```
 
-> **Catatan performa:** build pertama tetap paling lama karena install dependency dari nol. Setelah itu, build berikutnya akan jauh lebih cepat karena Dockerfile sekarang memakai cache npm (`--mount=type=cache,target=/root/.npm`).
+> **Catatan performa:** build pertama tetap paling lama karena install dependency dari nol. Setelah itu, build berikutnya akan jauh lebih cepat karena Dockerfile sekarang memakai stage dependency terpisah + cache npm (`--mount=type=cache,target=/root/.npm`). Build frontend juga dijalankan langsung lewat `node /app/node_modules/vite/bin/vite.js build`, jadi tidak bergantung pada symlink `.bin` atau request tambahan ke registry saat proses build.
 
 #### Step 3: Verifikasi Deployment
 
@@ -79,7 +80,7 @@ cd 12tkj-harbas-website
 #### Step 2: Build Docker Image
 
 ```bash
-DOCKER_BUILDKIT=1 docker build -t 12tkj-harbas-web .
+DOCKER_BUILDKIT=1 docker build --progress=plain -t 12tkj-harbas-web .
 ```
 
 #### Step 3: Run Container
@@ -252,7 +253,8 @@ git pull origin main
 # Rebuild dan deploy (cache tetap dipakai)
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
-docker compose up -d --build
+docker compose build --progress=plain
+docker compose up -d
 ```
 
 ---
@@ -317,6 +319,19 @@ docker compose build --progress=plain
 # Jika cache diduga rusak, baru rebuild dari awal
 docker compose build --no-cache
 ```
+
+### Error `vite: not found` / `./node_modules/.bin/vite: not found`
+
+Jika muncul error seperti ini, biasanya image lama masih memakai layer build yang salah atau builder belum memakai Dockerfile terbaru. Pastikan file `Dockerfile` terbaru sudah ter-copy ke server, lalu jalankan:
+
+```bash
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+docker compose build --no-cache --progress=plain
+docker compose up -d
+```
+
+Dockerfile terbaru memakai stage `deps` terpisah agar `node_modules` tidak hilang saat source di-copy, dan build dijalankan lewat path Vite yang eksplisit: `node /app/node_modules/vite/bin/vite.js build`.
 
 ### Build lama saat `npm ci`
 

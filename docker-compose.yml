@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
+      args:
+        BUILDKIT_INLINE_CACHE: "1"
     container_name: 12tkj-harbas-web
     ports:
       - "8213:8213"
