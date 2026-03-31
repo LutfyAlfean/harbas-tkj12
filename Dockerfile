@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/root/.npm \
 COPY . .
 
 # Build the application
-RUN npm exec vite build
+RUN ./node_modules/.bin/vite build
 
 # Production stage with Nginx
 FROM nginx:alpine AS production
