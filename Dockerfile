@@ -7,13 +7,13 @@ WORKDIR /app
 
 ENV CI=true
 ENV NODE_ENV=development
+ENV NODE_OPTIONS=--max-old-space-size=512
 
 # Copy package files first for better caching
 COPY package.json package-lock.json ./
 
-# Install dependencies with BuildKit cache for faster rebuilds
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci --include=dev --legacy-peer-deps --prefer-offline --no-audit --no-fund \
+# Install dependencies - no cache mount to avoid corruption issues
+RUN npm ci --include=dev --legacy-peer-deps --no-audit --no-fund --maxsockets=3 \
     && test -f /app/node_modules/vite/bin/vite.js
 
 # Build stage
