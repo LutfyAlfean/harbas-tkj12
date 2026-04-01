@@ -45,7 +45,7 @@ docker compose build --progress=plain
 docker compose up -d
 ```
 
-> **Catatan performa:** build pertama tetap paling lama karena install dependency dari nol. Setelah itu, build berikutnya akan jauh lebih cepat karena Dockerfile sekarang memakai stage dependency terpisah + cache npm (`--mount=type=cache,target=/root/.npm`). Build frontend juga dijalankan langsung lewat `node /app/node_modules/vite/bin/vite.js build`, jadi tidak bergantung pada symlink `.bin` atau request tambahan ke registry saat proses build.
+> **Catatan performa & stabilitas:** build pertama tetap paling lama karena install dependency dari nol. Setelah itu, build berikutnya akan jauh lebih cepat karena Dockerfile memakai stage dependency terpisah. Builder sekarang memakai `node:20-bookworm-slim` agar lebih stabil di server Ubuntu/VPS yang sering memunculkan error npm internal seperti `Exit handler never called!`. Build frontend juga dijalankan langsung lewat `node /app/node_modules/vite/bin/vite.js build`, jadi tidak bergantung pada symlink `.bin`.
 
 #### Step 3: Verifikasi Deployment
 
@@ -55,6 +55,9 @@ docker compose ps
 
 # Cek logs
 docker compose logs -f
+
+# Cek health container
+docker inspect --format='{{json .State.Health}}' 12tkj-harbas-web
 
 # Test akses
 curl http://localhost:8213
@@ -89,6 +92,11 @@ DOCKER_BUILDKIT=1 docker build --progress=plain -t 12tkj-harbas-web .
 docker run -d \
   --name 12tkj-harbas-web \
   -p 8213:8213 \
+  --health-cmd='wget -q -O /dev/null http://127.0.0.1:8213/health || exit 1' \
+  --health-interval=30s \
+  --health-timeout=10s \
+  --health-start-period=20s \
+  --health-retries=3 \
   --restart unless-stopped \
   12tkj-harbas-web
 ```
@@ -310,6 +318,21 @@ docker compose logs
 docker events
 ```
 
+### Container status `unhealthy`
+
+```bash
+# Lihat detail healthcheck
+docker inspect --format='{{json .State.Health}}' 12tkj-harbas-web
+
+# Pastikan endpoint health merespons OK
+curl http://localhost:8213/health
+
+# Jika perlu, restart container setelah rebuild image terbaru
+docker compose down
+docker compose build --no-cache --progress=plain
+docker compose up -d
+```
+
 ### Build gagal
 
 ```bash
@@ -332,6 +355,35 @@ docker compose up -d
 ```
 
 Dockerfile terbaru memakai stage `deps` terpisah agar `node_modules` tidak hilang saat source di-copy, dan build dijalankan lewat path Vite yang eksplisit: `node /app/node_modules/vite/bin/vite.js build`.
+
+### Error `npm error Exit handler never called!`
+
+Error ini biasanya berasal dari npm di image Alpine atau kondisi resource/network VPS yang kurang stabil saat `npm ci` berjalan.
+
+Solusi yang sekarang dipakai di project ini:
+
+- Builder diganti ke `node:20-bookworm-slim` (lebih stabil dibanding `node:20-alpine` untuk kasus ini)
+- Batas memori Node dipasang lewat `NODE_OPTIONS=--max-old-space-size=512`
+- Koneksi npm dibatasi agar install dependency tidak terlalu agresif
+
+Langkah recovery yang disarankan:
+
+```bash
+docker compose down
+docker builder prune -af
+docker compose build --no-cache --progress=plain
+docker compose up -d
+```
+
+Jika server RAM kecil (misalnya 1 GB), tambahkan swap 2 GB:
+
+```bash
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+free -h
+```
 
 ### Build lama saat `npm ci`
 
